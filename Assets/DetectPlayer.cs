@@ -57,10 +57,10 @@ public class DetectPlayer : MonoBehaviour {
 		yield return new WaitForSeconds (Random.Range (startWait.x, startWait.y));
 		while (true)
 		{
-			if(player == null || player.gameObject == null || player.rigidbody == null) yield break;
+			if(player == null || player.gameObject == null || player.GetComponent<Rigidbody>() == null) yield break;
 			if(Vector3.Distance(transform.position, player.transform.position) < DetectArea){
 				Debug.Log ("Found Player " + detectCount++ + " in Detect()");
-				enemyMover.FoundPlayerPosition(player.rigidbody.position);
+				enemyMover.FoundPlayerPosition(player.GetComponent<Rigidbody>().position);
 			}
 			yield return new WaitForSeconds (Random.Range (detectWait.x, detectWait.y));
 		}
@@ -70,7 +70,7 @@ public class DetectPlayer : MonoBehaviour {
 		if(other.tag == "Player"){
 			Debug.Log ("Found Player" + detectCount++ );
 
-			enemyMover.FoundPlayerPosition(other.rigidbody.position);
+			enemyMover.FoundPlayerPosition(other.GetComponent<Rigidbody>().position);
 
 			/*
 			Vector3 toPlayer = other.transform.position - transform.position;

@@ -34,7 +34,7 @@ public class EnemyMover : MonoBehaviour
 
 	void Start ()
 	{
-		rigidbody.velocity = new Vector3(0.0f,0.0f,0.0f);
+		GetComponent<Rigidbody>().velocity = new Vector3(0.0f,0.0f,0.0f);
 		lastAngle = 0.0f;
 
 		StartCoroutine(Evade());
@@ -83,25 +83,25 @@ public class EnemyMover : MonoBehaviour
 		}
 		float newAngle = Mathf.MoveTowards (lastAngle, targetAngle, smoothingAngle * Time.deltaTime);
 		
-		rigidbody.rotation = Quaternion.Euler (0, newAngle, 0);
+		GetComponent<Rigidbody>().rotation = Quaternion.Euler (0, newAngle, 0);
 		lastAngle = newAngle;
 
 		if(randomTurn == false && lastAngle == targetAngle) randomTurn = true;
 
-		float newVx = Mathf.MoveTowards (rigidbody.velocity.x, targetVx, smoothing * Time.deltaTime);
-		float newVz = Mathf.MoveTowards (rigidbody.velocity.z, targetVz, smoothing * Time.deltaTime);
+		float newVx = Mathf.MoveTowards (GetComponent<Rigidbody>().velocity.x, targetVx, smoothing * Time.deltaTime);
+		float newVz = Mathf.MoveTowards (GetComponent<Rigidbody>().velocity.z, targetVz, smoothing * Time.deltaTime);
 
-		rigidbody.velocity = new Vector3 (newVx, 0.0f, newVz);
+		GetComponent<Rigidbody>().velocity = new Vector3 (newVx, 0.0f, newVz);
 		//Quaternion deltaRotation = Quaternion.Euler(new Vector3 (0.0f, angleVelocity,0.0f) * Time.deltaTime * 100);
 		//Debug.Log (deltaRotation);
 		//rigidbody.MoveRotation(rigidbody.rotation * deltaRotation);
 		//rigidbody.rotation += deltaRotation;
 
-		rigidbody.position = new Vector3
+		GetComponent<Rigidbody>().position = new Vector3
 		(
-			Mathf.Clamp(rigidbody.position.x, boundary.xMin, boundary.xMax), 
+			Mathf.Clamp(GetComponent<Rigidbody>().position.x, boundary.xMin, boundary.xMax), 
 			0.0f, 
-			Mathf.Clamp(rigidbody.position.z, boundary.zMin, boundary.zMax)
+			Mathf.Clamp(GetComponent<Rigidbody>().position.z, boundary.zMin, boundary.zMax)
 		);
 
 		//rigidbody.MoveRotation(Quaternion.identity);
